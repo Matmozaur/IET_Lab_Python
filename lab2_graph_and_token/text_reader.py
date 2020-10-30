@@ -2,11 +2,11 @@ from common_utils.data_read_utils import openable_file
 import nltk
 
 
-class TextReader:
+class TextReader:   # czy ta klasa jest potrzebna, skoro ma same metody statyczne?
 
     @staticmethod
     def read_tokens_txt(path):
-        path = openable_file(path)
+        path = openable_file(path)  # czy kontrola w tym miejscu coś Panu daje?
         with open(path, "r+", encoding='utf-8') as file:
             for line in file:
                 for word in line.split():
@@ -48,6 +48,7 @@ class TextReader:
             flag = False
             for line in file:
                 line, token_type = line.split()[0][1:-1], line.split()[2]
+                # moja sugestia: token, lemma, token_type = line.split(); token = token[1:-1]
                 if token_type == 'Interp':
                     flag = False
                 if flag:

@@ -13,10 +13,10 @@ class Graph:
     def _is_valid_graph(initial_graph):
         if not isinstance(initial_graph, dict):
             return False
-        elif len([x for x in initial_graph.values() if not isinstance(x, set)]) > 0:
+        elif len([x for x in initial_graph.values() if not isinstance(x, set)]) > 0: # proszę rzucić okiem na funkcje all i any
             return False
         else:
-            if set(set().union(*initial_graph.values())) <= set(initial_graph.keys()):
+            if set(set().union(*initial_graph.values())) <= set(initial_graph.keys()):  # czy ten set całkiem po lewej jest potrzebny? union zwróci zbiór przecież
                 return True
             else:
                 return False
@@ -27,7 +27,7 @@ class Graph:
         else:
             try:
                 self.graph[vertex] = set()
-            except TypeError as e:
+            except TypeError as e:  # obsł↓ga wyjątku na tym etapie nie ma sensu; lepiej mu pozwolić polecieć wyżej
                 print('Wrong key for dictionary')
                 print(e)
 
