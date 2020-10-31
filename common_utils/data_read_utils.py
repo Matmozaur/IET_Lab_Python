@@ -7,7 +7,7 @@ def non_negative_int(x):
 
 def openable_file(path):
     try:
-        file = open(path, "r+")
+        open(path, "r+")
         return path
     except IOError as e:
         print("Could not open file! ")

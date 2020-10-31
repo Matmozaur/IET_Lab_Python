@@ -1,12 +1,18 @@
+from datetime import datetime
+
+
 class Person:
 
     def __init__(self, first_name, last_name, email):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
+        self.inbox = dict()
 
-    def send_email(self, message):
-        print("Email with the following content: \"{}\" has been sent to email address \"{}\".".format(message, self.email))
+    def send_email(self, author, message):
+        self.inbox[(author, datetime.now().strftime("%d/%m/%Y %H:%M:%S"))] = message
+        print("Email with the following content: \"{}\" has been sent to email address \"{}\".".format(message,
+                                                                                                       self.email))
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name + ' ' + self.email
@@ -85,4 +91,5 @@ if __name__ == "__main__":
     print(rw)
     rtw = ResearchTeachingWorker('X', 'Y', 'a@b', '15a', ['subject_1', 'subject_2'], ['pub_1', 'pub_2'], 'Monday 17:00')
     print(rtw)
-    rtw.send_email('Best regards')
+    rtw.send_email('student1', 'Best regards')
+    print(rtw.inbox)

@@ -13,10 +13,10 @@ class Graph:
     def _is_valid_graph(initial_graph):
         if not isinstance(initial_graph, dict):
             return False
-        elif len([x for x in initial_graph.values() if not isinstance(x, set)]) > 0:
+        elif any([isinstance(x, set) for x in initial_graph.values()]):
             return False
         else:
-            if set(set().union(*initial_graph.values())) <= set(initial_graph.keys()):
+            if set().union(*initial_graph.values()) <= set(initial_graph.keys()):
                 return True
             else:
                 return False
@@ -25,11 +25,7 @@ class Graph:
         if vertex in self.graph.keys():
             pass
         else:
-            try:
-                self.graph[vertex] = set()
-            except TypeError as e:
-                print('Wrong key for dictionary')
-                print(e)
+            self.graph[vertex] = set()
 
     def add_edge(self, v1, v2):
         if v1 in self.graph.keys() and v2 in self.graph.keys() and v1 != v2:
