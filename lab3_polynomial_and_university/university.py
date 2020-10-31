@@ -6,11 +6,7 @@ class Person:
         self.email = email
 
     def send_email(self, message):
-
-        def send_method(email):
-            pass
-
-        send_method(self.email)
+        print("Email with the following content: \"{}\" has been sent to email address \"{}\".".format(message, self.email))
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name + ' ' + self.email
@@ -89,3 +85,4 @@ if __name__ == "__main__":
     print(rw)
     rtw = ResearchTeachingWorker('X', 'Y', 'a@b', '15a', ['subject_1', 'subject_2'], ['pub_1', 'pub_2'], 'Monday 17:00')
     print(rtw)
+    rtw.send_email('Best regards')
