@@ -1,6 +1,17 @@
 import copy
 from itertools import zip_longest
 
+"""
+    Czy defaultdict jest dobrym pomysłem na przechowywanie współczynników? - tak, myślę że sprawdził by się całkiem 
+    dobrze, można w nim zdefiniować domyślną wartośc na 0, więc nie trzeba byłoby się aż tyle martwić o to ograniczenie.
+
+    Czy taki wielomian zadziałałby w dziedzinie macierzy lub liczb zespolonych? - w dziedzinie zespolonych, jeśli nie ma
+     błędów w implementacji to powinien działać, jeśli chodzi o macierze to na pewno nie zadziała na wszystkich (tzn.
+     minimalnym wymaganiem jest to żeby były kwadratowe, oraz jeśli chcemy uzywać mnożenia, były tych samych rozmiarów).
+     Oprócz tego oczywiście ich implementacja musi być kompatybilna z poniższym kodem, czyli muszą być w niej
+    zaimplementowane przeciążenia odpowiednich operatorów.
+"""
+
 
 def get_last_nonzero_index(lst):
     for element in reversed(lst):
@@ -21,6 +32,14 @@ class Polynomial:
     def __init__(self, coefficients: list):
         coefficients = coefficients[:get_last_nonzero_index(coefficients) + 1]
         self.coefficients = coefficients
+
+    def set_coefficient(self, position, c):
+        degree = len(self.coefficients)
+        if position < degree:
+            self.coefficients[position] = c
+        else:
+            self.coefficients += [0] * (position - degree)
+            self.coefficients.append(c)
 
     def calculate(self, x: float):
         return sum([x ** i * self.coefficients[i] for i in range(len(self.coefficients))])
@@ -78,8 +97,18 @@ class Polynomial:
 
 
 if __name__ == "__main__":
-    p1 = Polynomial([1, 0, 2])
+    p1 = Polynomial([1])
     p2 = Polynomial([3, 3, 3, 1, 0])
+    p1.set_coefficient(2, 2)
+    print(p1)
+    print(p1 + p2)
+    print(p1 + 2)
+    print(p2 - p1)
+    print(p1.calculate(2))
+    print(p1 * p2)
+
+    p1 = Polynomial([0, 2j])
+    p2 = Polynomial([3, 3 + 3j, 1])
     print(p1)
     print(p1 + p2)
     print(p1 + 2)
