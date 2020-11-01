@@ -6,10 +6,12 @@ from itertools import zip_longest
     dobrze, można w nim zdefiniować domyślną wartośc na 0, więc nie trzeba byłoby się aż tyle martwić o to ograniczenie.
 
     Czy taki wielomian zadziałałby w dziedzinie macierzy lub liczb zespolonych? - w dziedzinie zespolonych, jeśli nie ma
-     błędów w implementacji to powinien działać, jeśli chodzi o macierze to na pewno nie zadziała na wszystkich (tzn.
-     minimalnym wymaganiem jest to żeby były kwadratowe, oraz jeśli chcemy uzywać mnożenia, były tych samych rozmiarów).
-     Oprócz tego oczywiście ich implementacja musi być kompatybilna z poniższym kodem, czyli muszą być w niej
-    zaimplementowane przeciążenia odpowiednich operatorów.
+     błędów w implementacji to powinien działać zarówno jeśli chodzi o zespolone wartości jak i współczynniki, jeśli
+     chodzi o macierze to na pewno nie zadziała na wszystkich (tzn.minimalnym wymaganiem jest to żeby były kwadratowe,
+     oraz jeśli chcemy uzywać mnożenia, były tych samych rozmiarów). Oprócz tego oczywiście ich implementacja musi być
+     kompatybilna z poniższym kodem, czyli muszą być w niej zaimplementowane przeciążenia odpowiednich operatorów.
+     Jeśli ponadto macierze miałyby być współczynnikami to wartościami również musiałyby być wyłącznie macierze
+     kwadratowe określonych rozmiarów
 """
 
 
@@ -41,7 +43,7 @@ class Polynomial:
             self.coefficients += [0] * (position - degree)
             self.coefficients.append(c)
 
-    def calculate(self, x: float):
+    def __call__(self, x: float):
         return sum([x ** i * self.coefficients[i] for i in range(len(self.coefficients))])
 
     def __str__(self):
@@ -104,7 +106,8 @@ if __name__ == "__main__":
     print(p1 + p2)
     print(p1 + 2)
     print(p2 - p1)
-    print(p1.calculate(2))
+    print(p1(2))
+    print(p1(2j))
     print(p1 * p2)
 
     p1 = Polynomial([0, 2j])
@@ -113,5 +116,6 @@ if __name__ == "__main__":
     print(p1 + p2)
     print(p1 + 2)
     print(p2 - p1)
-    print(p1.calculate(2))
+    print(p1(2))
+    print(p1(2+1j))
     print(p1 * p2)
