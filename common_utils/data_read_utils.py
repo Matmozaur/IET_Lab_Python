@@ -1,3 +1,6 @@
+import argparse
+
+
 def non_negative_int(x):
     i = int(x)
     if i < 0:
@@ -12,4 +15,4 @@ def openable_file(path):
     except IOError as e:
         print("Could not open file! ")
         print(e)
-        raise
+        raise argparse.ArgumentError
