@@ -10,9 +10,9 @@ def non_negative_int(x):
 
 def openable_file(path):
     try:
-        open(path, "r+")
+        f = open(path, "r+")
+        f.close()
         return path
     except IOError as e:
         print("Could not open file! ")
-        print(e)
-        raise argparse.ArgumentError
+        raise e
