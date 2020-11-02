@@ -14,14 +14,12 @@ class TextReader:
 
     @staticmethod
     def read_tokens_conll(path):
-        path = openable_file(path)
         with open(path, "r+", encoding='utf-8') as file:
             for line in file:
                 yield line.split()[0][1:-1]
 
     @staticmethod
     def read_sentences_txt(path):
-        path = openable_file(path)
         with open(path, "r+", encoding='utf-8') as file:
             temp = ''
             flag = False
@@ -41,7 +39,6 @@ class TextReader:
 
     @staticmethod
     def read_sentences_conll(path):
-        path = openable_file(path)
         with open(path, "r+", encoding='utf-8') as file:
             temp = ''
             flag = False

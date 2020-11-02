@@ -1,7 +1,7 @@
-class Graph:
-    """
+import logging
 
-    """
+
+class Graph:
 
     def __init__(self, initial_graph=None):
         if initial_graph is None or not self._is_valid_graph(initial_graph):
@@ -30,12 +30,12 @@ class Graph:
     def add_edge(self, v1, v2):
         if v1 in self.graph.keys() and v2 in self.graph.keys() and v1 != v2:
             if v2 in self.graph[v1]:
-                print('edge already in graph')
+                logging.warning('edge already in graph')
             else:
                 self.graph[v1].add(v2)
                 self.graph[v2].add(v1)
         else:
-            print('cannot add edge!')
+            logging.warning('cannot add edge!')
 
     def delete_vertex(self, vertex):
         try:
@@ -43,29 +43,29 @@ class Graph:
                 self.graph[v].remove(vertex)
             del self.graph[vertex]
         except KeyError as e:
-            print('vertex doesnt seem to exist')
-            print(e)
+            logging.warning('vertex doesnt seem to exist')
+            logging.error(e)
 
     def delete_edge(self, v1, v2):
         try:
             self.graph[v1].remove(v2)
             self.graph[v2].remove(v1)
         except KeyError as e:
-            print('edge doesnt seem to exist')
-            print(e)
+            logging.warning('edge doesnt seem to exist')
+            logging.error(e)
 
     def get_neighbours(self, vertex):
         try:
             return self.graph[vertex]
         except KeyError as e:
-            print('vertex doesnt seem to exist')
-            print(e)
+            logging.warning('vertex doesnt seem to exist')
+            logging.error(e)
 
     def dfs(self, vertex, visited=None):
         if visited is None:
             visited = set()
         if vertex not in self.graph.keys():
-            print('vertex not in graph')
+            logging.warning('vertex not in graph')
         yield vertex
         visited.append(vertex)
         for v in self.graph[vertex]:
@@ -75,7 +75,7 @@ class Graph:
         visited = {vertex}
         queue = []
         if vertex not in self.graph.keys():
-            print('vertex not in graph')
+            logging.warning('vertex not in graph')
         queue.append(vertex)
         while len(queue) > 0:
             v = queue.pop()
