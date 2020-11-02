@@ -12,3 +12,4 @@ def openable_file(path):
     except IOError as e:
         print("Could not open file! ")
         print(e)
+        raise
