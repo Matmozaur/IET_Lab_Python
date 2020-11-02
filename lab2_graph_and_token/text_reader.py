@@ -1,5 +1,6 @@
 from common_utils.data_read_utils import openable_file
 import nltk
+nltk.download('punkt')
 
 
 class TextReader:
