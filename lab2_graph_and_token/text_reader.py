@@ -6,7 +6,6 @@ class TextReader:
 
     @staticmethod
     def read_tokens_txt(path):
-        path = openable_file(path)
         with open(path, "r+", encoding='utf-8') as file:
             for line in file:
                 for word in line.split():
