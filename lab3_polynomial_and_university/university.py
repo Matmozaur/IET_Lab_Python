@@ -43,7 +43,7 @@ class ResearchWorker(Worker):
 
     def __init__(self, first_name, last_name, email, room, publications):
         Worker.__init__(self, first_name, last_name, email, room)
-        self.publications = publications
+        self.publications = list(publications)
 
     def add_publications(self, publication):
         self.publications.append(publication)

@@ -43,6 +43,18 @@ class Polynomial:
             self.coefficients += [0] * (position - degree)
             self.coefficients.append(c)
 
+    # def __setitem__(self, key, value):
+    #     for syntax: P[1] = x ...
+    #
+    # def __getitem__(self, item):
+    #     for syntax: x = P[1] ...
+    #
+    # def __setattr__(self, key, value):
+    #     for syntax: P.a1 = x ...
+    #
+    # def __getattr__(self, item):
+    #     for syntax: x = P.a1 ...
+
     def __call__(self, x: float):
         return sum([x ** i * self.coefficients[i] for i in range(len(self.coefficients))])
 
@@ -96,6 +108,15 @@ class Polynomial:
     def __imul__(self, other):
         self = self * other
         return self
+
+    def __radd__(self, other):
+        return self + other
+
+    def __rsub__(self, other):
+        return Polynomial([other]) - self
+
+    def __rmul__(self, other):
+        return self * other
 
 
 if __name__ == "__main__":
