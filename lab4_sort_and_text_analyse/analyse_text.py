@@ -1,4 +1,4 @@
-from lab2_graph_and_token.text_reader import TextReader
+from lab2_graph_and_token.text_reader import TextReader # słusznie
 from collections import defaultdict, deque
 
 
@@ -8,7 +8,7 @@ SPECIAL = {".", "!", "?", ",", "-", "...", ";", ":"}
 def count_words(path):
     counted_words = defaultdict(int)
     for word in TextReader.read_tokens_txt(path):
-        if word not in SPECIAL:
+        if word not in SPECIAL: # szczerze mówiąc chyba opłaci się zliczać wszystko, a dopiero później odsiać niesłowa
             counted_words[word] += 1
     return counted_words
 
@@ -32,8 +32,8 @@ def get_top_from_dict(dictionary, n=None):
     else:
         result = []
         last = 0
-        for i in range(20):
-            most_popular = max(words, key=lambda x: dictionary[x])
+        for i in range(20): # czemu 20, a nie n?
+            most_popular = max(words, key=lambda x: dictionary[x])  # mało wydajne, wielokrotnie Pan przeszukuje całą listę; bardziej się opłaci najpierw posortować
             result += [most_popular]
             words.remove(most_popular)
             last = dictionary[most_popular]
