@@ -7,7 +7,7 @@ def greatest_common_denominator(a: int, b: int):
 def positive_int(x: int):
     x = float(x)
     i = int(x)
-    if i != x:
+    if i != x:  # co Pan właściwie tu sprawdza?
         raise TypeError('Wrong type of entities!')
     else:
         if i < 1:
@@ -23,7 +23,7 @@ def validate_entities(entities, validation, expected_len=None):
 
 
 def get_valid_user_input(message, validation, expected_len=None, sep=','):
-    return validate_entities(input(message).split(sep), validation, expected_len)
+    return validate_entities(input(message).split(sep), validation, expected_len) # wrażliwe na białe znaki
 
 
 def handle_gcd():

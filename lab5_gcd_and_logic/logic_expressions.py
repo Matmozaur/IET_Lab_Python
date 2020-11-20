@@ -5,7 +5,7 @@ class LogicAutomat:
         self.counter = 0
 
     def reset(self):
-        self.__init__()
+        self.__init__() # sugeruję odwrotnie - __init__ niech wywoła reset
 
     def handle_expression(self, expression):
         expression = expression.replace(" ", "")
@@ -22,21 +22,21 @@ class LogicAutomat:
         if self.state == 'q0':
             self.next_step_q0(c)
         else:
-            self.next_step_q1(c)
+            self.next_step_q1(c)    # jeśli już Pan to robi tak uniwerslanie, to sugeruję słownik
 
     def next_step_q0(self, c):
         if c == '(':
             self.counter += 1
         elif c == '~':
             pass
-        elif c.islower() and ord(c) < 128:
+        elif c.islower() and ord(c) < 128:  # a stałe?
             self.state = 'q1'
         else:
             self.state = 'qN'
 
     def next_step_q1(self, c):
         if c == ')':
-            self.counter -= 1
+            self.counter -= 1   # właściwie sprawdzenie countera mogłoby być tutaj
         elif c in {'&', '|'}:
             self.state = 'q0'
         else:
@@ -46,7 +46,7 @@ class LogicAutomat:
 def evaluate_expression(expresion):
     automat = LogicAutomat()
     is_valid = automat.handle_expression(expresion)
-    automat.reset()
+    automat.reset() # po co, skoro za chwilę tego automatu nie będzie?
     return is_valid
 
 
