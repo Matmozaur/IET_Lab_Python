@@ -3,7 +3,7 @@ from lab6_2D_painter.geometry import *
 
 def check_name(name):
     if name[0].isdigit():
-        ValueError('Name cannot start with a digit!')
+        raise ValueError('Name cannot start with a digit!')
     for s in name:
         if not s.isalnum() and s != '_':
             raise ValueError('Name cannot contain!')
@@ -16,12 +16,12 @@ class Board:
     def __init__(self):
         self.figures = dict()
 
-    def add(self, figure, name, size):
+    def add(self, figure, name, *size):
         name = check_name(name)
         if name in self.figures.keys():
             raise ValueError('Name is not unique!')
         else:
-            self.figures[name] = Board.FIGURES[figure.lower()](size)
+            self.figures[name] = Board.FIGURES[figure.lower()](*size)
 
     def remove(self, name):
         if name in self.figures.keys():

@@ -22,19 +22,25 @@ class Vector2D:
         return self
 
 
+def check_numeric(size):
+    for i, v in enumerate(size):
+        size[i] = float(v)
+    return size
+
+
 class Shape:
     COLORS = {'black', 'white', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'}
 
-    def __init__(self, size):
-        self.size = float(size)
+    def __init__(self, *size):
+        self.size = check_numeric(list(size))
         self.center = Vector2D(0, 0)
         self.border_color = 'white'
         self.background_color = 'white'
 
     def __str__(self):
         return 'center: {}, size: {}, border color: {}, background color: {}'.format(self.center, self.size,
-                                                                                      self.border_color,
-                                                                                      self.background_color)
+                                                                                     self.border_color,
+                                                                                     self.background_color)
 
     def move(self, x, y):
         self.center += Vector2D(x, y)
@@ -62,6 +68,10 @@ class Shape:
 
 
 class Circle(Shape):
+    def __init__(self, *size):
+        if len(size) != 1:
+            raise ValueError('Wrong size format')
+        super().__init__(*size)
 
     def __str__(self):
         return 'Circle (' + super().__str__() + ')'
@@ -69,8 +79,8 @@ class Circle(Shape):
 
 class Polygon(Shape):
 
-    def __init__(self, size):
-        super().__init__(size)
+    def __init__(self, *size):
+        super().__init__(*size)
         self.angle = 0
 
     def rotate(self, angle):
@@ -80,19 +90,36 @@ class Polygon(Shape):
         return super().__str__()[:-1] + ', rotation: {})'.format(self.angle)
 
 
-class Square(Shape):
+class Square(Polygon):
+
+    def __init__(self, *size):
+        if len(size) != 1:
+            raise ValueError('Wrong size format')
+        super().__init__(*size)
 
     def __str__(self):
         return 'Square (' + super().__str__() + ')'
 
 
-class Rectangle(Shape):
+class Rectangle(Polygon):
+
+    def __init__(self, *size):
+        if len(size) != 2:
+            raise ValueError('Wrong size format')
+        super().__init__(*size)
 
     def __str__(self):
         return 'Rectangle (' + super().__str__() + ')'
 
 
-class Triangle(Shape):
+class Triangle(Polygon):
+
+    def __init__(self, *size):
+        if len(size) != 3:
+            raise ValueError('Wrong size format')
+        super().__init__(*size)
+        if 2*max(self.size) >= sum(self.size):
+            raise ValueError('Triangle inequality unsatisfied!')
 
     def __str__(self):
         return 'Triangle (' + super().__str__() + ')'
