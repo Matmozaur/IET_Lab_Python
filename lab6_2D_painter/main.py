@@ -1,4 +1,4 @@
-from lab6_2D_painter.geometry import *
+from lab6_2D_painter.geometry import *  # nie zaleca się używania import *
 
 
 def check_name(name):
@@ -6,7 +6,7 @@ def check_name(name):
         raise ValueError('Name cannot start with a digit!')
     for s in name:
         if not s.isalnum() and s != '_':
-            raise ValueError('Name cannot contain!')
+            raise ValueError('Name cannot contain!')    # contain what?
     return name
 
 

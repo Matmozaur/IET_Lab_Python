@@ -11,7 +11,7 @@ class Vector2D:
         return Vector2D(self.x + other.x, self.y + other.y)
 
     def __iadd__(self, other):
-        self = self + other
+        self = self + other # wektor jest modyfikowalny, czy niemodyfikowalny?
         return self
 
     def __sub__(self, other):
@@ -22,7 +22,7 @@ class Vector2D:
         return self
 
 
-def check_numeric(size):
+def check_numeric(size):    # myląca nazwa
     for i, v in enumerate(size):
         size[i] = float(v)
     return size
@@ -46,7 +46,7 @@ class Shape:
         self.center += Vector2D(x, y)
 
     def scale(self, ratio):
-        ratio = float(ratio)
+        ratio = float(ratio)    # lepiej założyć, że już Pan dostał właściwy typ
         if ratio == 0:
             raise ValueError('Ratio must be non-zero!')
         self.size *= ratio
