@@ -2,7 +2,7 @@ import unittest
 
 from lab7_unit_tests.main.math_utils import quadratic_equation, find_straight_line
 
-
+# trochę ubogie te testy
 class QuadraticEquationTest(unittest.TestCase):
     # Z tego co widziałem przeglądając pobieżnie internet niestety niemożliwe jest w tym momencie używanie
     # almostEqual na setach przy użyciu wyłaćznie biblioteki unittest, dlatego tutaj robię ta kombinację z
