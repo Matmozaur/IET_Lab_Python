@@ -8,6 +8,8 @@ class DataHolder:
     def __init__(self, x=None, y=None):
         self.X = x
         self.Y = y
+        self.center_params = dict()
+        self.normalize_params = dict()
 
     def read_data(self, path, y_col=-1, delimiter=';'):
         with open(path) as csvfile:
@@ -29,33 +31,69 @@ class DataHolder:
 
     def center_rows(self):
         self.check_none()
-        for i in range(self.X.shape[1]):
-            self.X[:, i] -= self.X.min(1)
-            max_val = self.X.max(1)
+        result = np.copy(self.X)
+        for i in range(result.shape[0]):
+            result -= result.min(1)
+            max_val = result.max(1)
             if max_val != 0:
-                self.X[:, i] /= max_val
-
-    def center_column(self, col_num):
-        self.check_none()
-        self.X[:, col_num] -= self.X[:, col_num].min()
-        max_val = self.X[:, col_num].max()
-        if max_val != 0:
-            self.X[:, col_num] /= max_val
+                result[:, i] /= max_val
+        return result
 
     def normalize_rows(self):
         self.check_none()
-        for i in range(self.X.shape[1]):
-            self.X[:, i] -= self.X.mean(1)
-            std = self.X.std(1)
+        result = np.copy(self.X)
+        for i in range(result.shape[0]):
+            result[:, i] -= result.mean(1)
+            std = result.std(1)
             if std != 0:
-                self.X[:, i] /= std
+                result[:, i] /= std
+        return result
 
-    def normalize_column(self, col_num):
+    def fit_column_center(self, col_num):
         self.check_none()
-        self.X[:, col_num] -= self.X[:, col_num].mean()
-        std = self.X[:, col_num].std()
-        if std != 0:
-            self.X[:, col_num] /= std
+        self.center_params[col_num] = {'min': self.X[:, col_num].min()}
+        self.center_params[col_num]['max'] = self.X[:, col_num].max()
+
+    def fit_column_normalizer(self, col_num):
+        self.check_none()
+        self.normalize_params[col_num] = {'mean': self.X[:, col_num].mean()}
+        self.normalize_params[col_num]['std'] = self.X[:, col_num].std()
+
+    def fit_all_column_centers(self):
+        for i in range(self.X.shape[1]):
+            self.fit_column_center(i)
+
+    def fit_all_column_normalizers(self):
+        print(self.X.shape[1])
+        for i in range(self.X.shape[1]):
+            print(i)
+            self.fit_column_normalizer(i)
+
+    def center_column(self, data, col_num):
+        result = np.copy(data)
+        result[:, col_num] -= self.center_params[col_num]['min']
+        if self.center_params[col_num]['max'] != 0:
+            result[:, col_num] /= self.center_params['max']
+        return result
+
+    def normalize_column(self, data, col_num):
+        result = np.copy(data)
+        result[:, col_num] -= self.normalize_params[col_num]['mean']
+        if self.normalize_params[col_num]['std'] != 0:
+            result[:, col_num] /= self.normalize_params[col_num]['std']
+        return result
+
+    def center_all_columns(self, data):
+        result = np.copy(data)
+        for i in range(data.shape[1]):
+            result = self.center_column(result, i)
+        return result
+
+    def normalize_all_columns(self, data):
+        result = np.copy(data)
+        for i in range(data.shape[1]):
+            result = self.normalize_column(result, i)
+        return result
 
     def train_test_split(self, train_ratio=0.8):
         self.check_none()
