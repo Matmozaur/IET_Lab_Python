@@ -4,12 +4,12 @@ from data_holder import DataHolder
 
 class Perceptron:
 
-    def __init__(self, number_of_columns):
+    def __init__(self, number_of_columns):  # w kontekście perceptronu mówimy raczej o cechach (features) niż kolumnach
         self.weights = np.random.rand(number_of_columns, 1)
         self.threshold = 0
 
     def predict(self, x):
-        pred = np.matmul(self.weights.T, x)[0] + self.threshold
+        pred = np.matmul(self.weights.T, x)[0] + self.threshold # co zwraca matmul, że Pan to musi indeksować?
         y_pred = int(pred > 0)
         return y_pred
 
@@ -37,7 +37,7 @@ class Perceptron:
             print('Iteration {}:\n\terror rate: {} \n\taccuracy: {}'.format(i, err_rate, 1-err_rate))
 
     def test(self, test_data):
-        n_samples = len(data.Y)
+        n_samples = len(data.Y) # a skąd się bierze data?
         self.check_data(test_data)
         error = 0
         for x, y in zip(test_data.X, test_data.Y):
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     test.X = train.normalize_all_columns(test.X)
     print('Test results\n', clf.test(test))
     print('\n\n')
-    print('sample2')
+    print('sample2')    # czemu nie w pętli for?
     data = DataHolder()
     data.read_data('sample2.csv')
     train, test = data.train_test_split()

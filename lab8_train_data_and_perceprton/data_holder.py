@@ -1,5 +1,5 @@
 import csv
-from functools import wraps
+from functools import wraps # nigdzie Pan nie używa, a można by
 import numpy as np
 
 
@@ -25,9 +25,9 @@ class DataHolder:
     def get_number_of_columns(self):
         return self.X.shape[1]
 
-    def check_none(self):
+    def check_none(self):   # _check_none
         if self.X is None:
-            raise ValueError('Data must be pulled first!')
+            raise ValueError('Data must be pulled first!')  # to czemu konstruktor tego nie robi?
 
     def center_rows(self):
         self.check_none()
@@ -36,7 +36,7 @@ class DataHolder:
             result -= result.min(1)
             max_val = result.max(1)
             if max_val != 0:
-                result[:, i] /= max_val
+                result[:, i] /= max_val # to rows, czy columns?
         return result
 
     def normalize_rows(self):
@@ -69,9 +69,9 @@ class DataHolder:
             print(i)
             self.fit_column_normalizer(i)
 
-    def center_column(self, data, col_num):
+    def center_column(self, data, col_num): # można jako wartość domyślną data przyjmować self.X
         result = np.copy(data)
-        result[:, col_num] -= self.center_params[col_num]['min']
+        result[:, col_num] -= self.center_params[col_num]['min']    # a jeśli 'min' nie jest ustawione?
         if self.center_params[col_num]['max'] != 0:
             result[:, col_num] /= self.center_params['max']
         return result
@@ -104,3 +104,5 @@ class DataHolder:
         else:
             y_train = y_test = None
         return DataHolder(x_train, y_train), DataHolder(x_test, y_test)
+
+# nie udało mi się nic zrobić z wczytanymi danymi, żeby nie poleciał wyjątek
