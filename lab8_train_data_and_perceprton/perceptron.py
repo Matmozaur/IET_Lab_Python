@@ -1,15 +1,15 @@
 import numpy as np
-from data_holder import DataHolder
+from data_holder import DataHolder, read_data
 
 
 class Perceptron:
 
-    def __init__(self, number_of_columns):
-        self.weights = np.random.rand(number_of_columns, 1)
+    def __init__(self, number_of_features):
+        self.weights = np.random.rand(number_of_features, 1)
         self.threshold = 0
 
     def predict(self, x):
-        pred = np.matmul(self.weights.T, x)[0] + self.threshold
+        pred = np.matmul(self.weights.T, x) + self.threshold
         y_pred = int(pred > 0)
         return y_pred
 
@@ -21,7 +21,7 @@ class Perceptron:
         if n_samples != len(data.X):
             raise ValueError('Different dimensions in the data!')
 
-    def train(self, train_data, max_iter=100, learning_rate=0.1):
+    def train(self, train_data, max_iter=100, learning_rate=0.01):
         self.check_data(train_data)
         n_samples = len(data.Y)
         for i in range(max_iter):
@@ -37,7 +37,7 @@ class Perceptron:
             print('Iteration {}:\n\terror rate: {} \n\taccuracy: {}'.format(i, err_rate, 1-err_rate))
 
     def test(self, test_data):
-        n_samples = len(data.Y)
+        n_samples = len(test_data.Y)
         self.check_data(test_data)
         error = 0
         for x, y in zip(test_data.X, test_data.Y):
@@ -49,38 +49,15 @@ class Perceptron:
 
 
 if __name__ == '__main__':
-    print('sample1')
-    data = DataHolder()
-    data.read_data('sample1.csv')
-    train, test = data.train_test_split()
-    train.fit_all_column_normalizers()
-    clf = Perceptron(train.get_number_of_columns())
-    train.X = train.normalize_all_columns(train.X)
-    clf.train(train, learning_rate=0.01)
-    print()
-    test.X = train.normalize_all_columns(test.X)
-    print('Test results\n', clf.test(test))
-    print('\n\n')
-    print('sample2')
-    data = DataHolder()
-    data.read_data('sample2.csv')
-    train, test = data.train_test_split()
-    train.fit_all_column_normalizers()
-    clf = Perceptron(train.get_number_of_columns())
-    train.X = train.normalize_all_columns(train.X)
-    clf.train(train, learning_rate=0.01)
-    print()
-    test.X = train.normalize_all_columns(test.X)
-    print('Test results\n', clf.test(test))
-    print('\n\n')
-    print('sample3')
-    data = DataHolder()
-    data.read_data('sample3.csv')
-    train, test = data.train_test_split()
-    train.fit_all_column_normalizers()
-    clf = Perceptron(train.get_number_of_columns())
-    train.X = train.normalize_all_columns(train.X)
-    clf.train(train, learning_rate=0.01)
-    print()
-    test.X = train.normalize_all_columns(test.X)
-    print('Test results\n', clf.test(test))
+    for dataset in ['sample1', 'sample2', 'sample3']:
+        print(dataset)
+        data = read_data(dataset + '.csv')
+        train, test = data.train_test_split()
+        train.fit_all_column_normalizers()
+        clf = Perceptron(train.get_number_of_columns())
+        train.X = train.normalize_all_columns(train.X)
+        clf.train(train)
+        print()
+        test.X = train.normalize_all_columns(test.X)
+        print('Test results\n', clf.test(test))
+        print('\n\n')
