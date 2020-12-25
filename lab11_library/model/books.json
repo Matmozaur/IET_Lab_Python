@@ -1,0 +1,40 @@
+{
+    "Last id": 6,
+    "Books": {
+        "1": {
+            "Title": "Harry Potter and the chamber of secrets",
+            "Author": "J.K. Rowling",
+            "Release": 2008,
+            "Available": true,
+            "Loaned to": null
+        },
+        "2": {
+            "Title": "Lord of the rings",
+            "Author": "J.R.R. Tolkien",
+            "Release": 2018,
+            "Available": false,
+            "Loaned to": "frodo"
+        },
+        "3": {
+            "Title": "The Hobbit",
+            "Author": "J.R.R. Tolkien",
+            "Release": 2020,
+            "Available": false,
+            "Loaned to": "frodo"
+        },
+        "4": {
+            "Title": "Blood of Elves",
+            "Author": "Andrzej Sapkowski",
+            "Release": 2009,
+            "Available": false,
+            "Loaned to": "kowal"
+        },
+        "5": {
+            "Title": "Deal Breaker",
+            "Author": "Harlan Coben",
+            "Release": 1995,
+            "Available": true,
+            "Loaned to": null
+        }
+    }
+}

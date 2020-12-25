@@ -1,0 +1,22 @@
+{
+    "kowal": {
+        "first_name": "Jan",
+        "last_name": "Kowalski",
+        "loaned": [
+            4
+        ]
+    },
+    "frodo": {
+        "first_name": "Marcin",
+        "last_name": "Nowak",
+        "loaned": [
+            2,
+            3
+        ]
+    },
+    "gruby": {
+        "first_name": "Patryk",
+        "last_name": "D",
+        "loaned": []
+    }
+}
