@@ -1,0 +1,5 @@
+FIRST_X = 0.15
+SECOND_X = 0.85
+STEP = 0.001
+G = 10
+R = 20
