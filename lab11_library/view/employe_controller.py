@@ -5,7 +5,7 @@ from lab11_library.model.reader import Reader
 def return_book(book_id):
     book = Book.get_book(book_id)
     if book is None:
-        return "Book doesnt exist!"
+        return "Book doesnt exist!" # czy to nie powinien być wyjątek?
     elif book.loaned_to is None:
         return "Book is not loaned!"
     else:

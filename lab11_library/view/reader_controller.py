@@ -15,7 +15,7 @@ def loan_book(user, book_id):
 def main_loop_reader(user):
     while True:
         print('See catalog - type 1\nLoan book - type 2\nExit - type 3')
-        command = input()
+        command = input()   # DRY
         if command == '1':
             for book in Book.get_all_books():
                 print(book)

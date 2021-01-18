@@ -6,7 +6,7 @@ from lab11_library.model.user import User
 script_dir = os.path.dirname(__file__)
 
 
-def communicate_database(func):
+def communicate_database(func): # deja vu + nie używane
     def wrap(*args, **kwargs):
         with open(os.path.join(script_dir, 'employees.json')) as employees:
             data = json.load(employees)

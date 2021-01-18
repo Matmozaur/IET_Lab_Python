@@ -6,10 +6,10 @@ from lab11_library.model.reader import Reader
 script_dir = os.path.dirname(__file__)
 
 
-def communicate_database(func):
+def communicate_database(func): # niejasna nazwa
     def wrap(*args, **kwargs):
         with open(os.path.join(script_dir, 'books.json')) as books:
-            data = json.load(books)
+            data = json.load(books) # czy wczytywanie i zapisywanie musi być w każdej funkcji/metodzie?
         result = func(*args, **kwargs, data=data)
         with open(os.path.join(script_dir, 'books.json'), 'w') as books:
             json.dump(data, books, indent=4)
@@ -32,7 +32,7 @@ class Book:
         self.title = title
         self.author = author
         self.release = release
-        self.available = available
+        self.available = available  # zduplikowana informacja
         self.loaned_to = loaned_to
         self.book_id = book_id
 
@@ -69,7 +69,7 @@ class Book:
     @staticmethod
     @read_database
     def get_book(book_id, data=None):
-        for idb in data['Books'].keys():
+        for idb in data['Books'].keys():    # data['Books'][book_id]
             if int(idb) == book_id:
                 return Book(data['Books'][idb]['Title'], data['Books'][idb]['Author'],
                             data['Books'][idb]['Release'], data['Books'][idb]['Available'],
