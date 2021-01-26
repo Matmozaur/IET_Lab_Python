@@ -32,14 +32,14 @@ class DataHolder:
         r_max[r_max == 0] = 1
         for i in range(result.shape[1]):
             result[:, i] /= r_max
-        return result
+        return result   # a nie powinniśmy zmodyfikować DataHoldera?
 
     def normalize_rows(self):
         result = np.copy(self.X)
         r_mean = result.mean(1)
         r_std = result.std(1)
         r_std[r_std == 0] = 1
-        for i in range(result.shape[1]):
+        for i in range(result.shape[1]):    # czemu Pan nie robi operacji na całości?
             result[:, i] -= r_mean
             result[:, i] /= r_std
         return result
@@ -73,7 +73,7 @@ class DataHolder:
             if self.center_params[col_num]['max'] != 0:
                 result[:, col_num] /= self.center_params[col_num]['max']
         except KeyError as e:
-            raise AttributeError('center for column not fitted yet!')
+            raise AttributeError('center for column not fitted yet!')   # a nie można tego po prostu zrobić, zamiast wymuszać na użytkowniku?
         return result
 
     def normalize_column(self, data=None, col_num=0):

@@ -9,7 +9,7 @@ class Perceptron:
         self.threshold = 0
 
     def predict(self, x):
-        pred = np.matmul(self.weights.T, x) + self.threshold
+        pred = np.matmul(self.weights.T, x) + self.threshold    # jeśli + to raczej bias; threshold byłby po prawej stronie nierówności w następnej linijce
         y_pred = int(pred > 0)
         return y_pred
 
